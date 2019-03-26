@@ -24,5 +24,17 @@ https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    
+	let maxlen = 0;
+	let str = '';
+	for (let i = 0, len = s.length; i < len; i++) {
+        let nowChar = s[i];
+        let index = str.indexOf(nowChar)
+		if (index > -1) {
+			str = str.substr(index + 1) + nowChar;
+		} else {
+			str += nowChar;
+			maxlen = Math.max(maxlen, str.length);
+		}
+	}
+	return maxlen;
 };
