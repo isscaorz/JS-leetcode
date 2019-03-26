@@ -17,14 +17,17 @@ https://leetcode-cn.com/problems/two-sum/
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let len = nums.length
-    for (let i = 0; i < len; i++) {
-        for (let j = i + 1; j < len; j++) {
-            if (nums[i] + nums[j] == target) {
-                return [i, j]
-            }
-        }
-    }
+	let myMap = new Map();
+	let len = nums.length;
+	for (let i = 0; i < len; i++) {
+		let num = nums[i];
+		if (!myMap.has(num)) {
+			myMap.set(target - num, i);
+		} else {
+			return [myMap.get(num), i];
+		}
+	}
+	throw new Error(`not found`);
 };
 
 /**
@@ -33,17 +36,17 @@ var twoSum = function(nums, target) {
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let myMap = new Map()
-    let len = nums.length
-    for (let i = 0; i < len; i++) {
-        let num = nums[i]
-        if (!myMap.has(num)) {
-            myMap.set(target - num, i)
-        } else {
-            return [myMap.get(num), i]
-        }
-    }
-    throw new Error(`not found`)
+	let myMap = new Map();
+	let index = 0;
+	for (let val of nums) {
+		if (myMap.has(val)) {
+			return [myMap.get(val), index];
+		} else {
+			myMap.set(target - val, index);
+			index++;
+		}
+	}
+	throw new Error(`not found`);
 };
 
 /**
@@ -52,15 +55,13 @@ var twoSum = function(nums, target) {
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let myMap = new Map()
-    let index = 0
-    for (let val of nums) {
-        if (myMap.has(val)) {
-            return [myMap.get(val), index]
-        } else {
-            myMap.set(target - val, index)
-            index++
-        }
-    }
-    throw new Error(`not found`)
+	let len = nums.length;
+	for (let i = 0; i < len; i++) {
+		for (let j = i + 1; j < len; j++) {
+			if (nums[i] + nums[j] == target) {
+				return [i, j];
+			}
+		}
+	}
+	throw new Error(`not found`);
 };
