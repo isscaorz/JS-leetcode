@@ -1,6 +1,6 @@
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-https://leetcode-cn.com/problems/two-sum/
+https://leetcode-cn.com/problems/reverse-integer/submissions/
 
 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
 示例 1:
@@ -24,6 +24,39 @@ https://leetcode-cn.com/problems/two-sum/
 var reverse = function(x) {
 	const max = Math.pow(2, 31);
 	const min = -max - 1;
+	let absX = Math.abs(x);
+	let res = 0;
+	while (absX !== 0) {
+		res = res * 10 + (absX % 10);
+        absX = Math.floor(absX / 10);    
+	}
+	if (x < 0) {
+		res = -res;
+	}
+	if (res >= max || res <= min) {
+		return 0;
+	}
+	return res;
+};
+
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+	const max = Math.pow(2, 31);
+    const min = -max - 1;
+    let absX = Math.abs(x);
+	let res = absX.toString().split('').reduce(function(acc, v){
+        return v + acc
+    }, '')
+    if (x < 0) {
+		res = -res;
+	}
+	if (res >= max || res <= min) {
+		return 0;
+	}
+	return res;
 };
 
 /**
