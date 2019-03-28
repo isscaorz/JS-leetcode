@@ -40,5 +40,28 @@ https://leetcode-cn.com/problems/string-to-integer-atoi/
  * @return {number}
  */
 var myAtoi = function(str) {
-    
+	let num = parseInt(str);
+	if (isNaN(num)) {
+		return 0;
+	} else {
+		let [MIN, MAX] = [-(2 ** 31), 2 ** 31 - 1];
+		if (num > MAX) return MAX;
+		if (num < MIN) return MIN;
+		return num;
+	}
+};
+
+/**
+ * @param {string} str
+ * @return {number}
+ */
+var myAtoi = function(str) {
+	if (/^\s*([+-]?\d+)/g.test(str)) {
+		var num = Number(RegExp.$1);
+		let [MIN, MAX] = [-(2 ** 31), 2 ** 31 - 1];
+		if (num > MAX) return MAX;
+		if (num < MIN) return MIN;
+		return num;
+	}
+	return 0;
 };
