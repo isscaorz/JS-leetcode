@@ -5,7 +5,7 @@ https://leetcode-cn.com/problems/container-with-most-water/
 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
 说明：你不能倾斜容器，且 n 的值至少为 2。
 
-   8       #______________#______
+   8       #_______________#______
    7       #|              #     |#
    6       #|  #           #     |#
    5       #|  #     #     #     |#
@@ -20,3 +20,44 @@ https://leetcode-cn.com/problems/container-with-most-water/
     输出: 49
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+	let len = height.length;
+	let lenl = 0;
+	let lenr = len - 1;
+	let maxA = 0;
+	while (lenl < lenr) {
+		maxA = Math.max(
+			maxA,
+			(lenr - lenl) * Math.min(height[lenl], height[lenr])
+		);
+		if (height[lenl] < height[lenr]) {
+			lenl++;
+		} else {
+			lenr--;
+		}
+	}
+	return maxA;
+};
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+	let len = height.length;
+	let maxA = 0;
+	for (let i = 0; i < len; i++) {
+		for (let j = i + 1; j < len; j++) {
+			let area = (j - i) * Math.min(height[i], height[j]);
+			if (maxA < area) {
+				maxA = area;
+			}
+		}
+	}
+	return maxA;
+};
