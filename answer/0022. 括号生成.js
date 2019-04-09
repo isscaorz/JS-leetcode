@@ -19,5 +19,15 @@ https://leetcode-cn.com/problems/generate-parentheses/
  * @return {string[]}
  */
 var generateParenthesis = function(n) {
-    
+	let output = [];
+	let core = (list, str, countL, countR, n) => {
+		if (str.length == n * 2) {
+			list.push(str);
+			return;
+		}
+		countL < n && core(list, str + '(', countL + 1, countR, n);
+		countR < countL && core(list, str + ')', countL, countR + 1, n);
+	};
+	core(output, '', 0, 0, n);
+	return output;
 };
