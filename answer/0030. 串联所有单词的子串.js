@@ -37,7 +37,6 @@ var findSubstring = function(s, words) {
 	words.forEach(w => {
 		map.set(w, (map.get(w) || 0) + 1);
 	});
-	console.log(map);
 	for (let i = 0; i < wl; i++) {
 		let temp = new Map();
 		let count = 0;
@@ -46,16 +45,26 @@ var findSubstring = function(s, words) {
 			let sHi = s.substring(hi, hi + wl);
 			if (map.has(sHi)) {
 				temp.set(sHi, (temp.get(sHi) || 0) + 1);
-                count++;
-                while(temp.get(sHi))
+				count++;
+				while (temp.get(sHi) > map.get(sHi)) {
+					let sLo = s.substring(lo, lo + wl);
+					temp.set(sLo, temp.get(sLo) - 1);
+					count--;
+					lo += wl;
+				}
+				if (count === m) {
+					output.push(lo);
+					let sLo = s.substring(lo, lo + wl);
+					temp.set(sLo, temp.get(sLo) - 1);
+					count--;
+					lo += wl;
+				}
 			} else {
-				temp.clear;
+				temp.clear();
 				count = 0;
 				lo = hi + wl;
 			}
 		}
 	}
-	console.log('output:', output);
 	return output;
 };
-findSubstring('barfoothefoobarman', ['foo', 'bar']);
