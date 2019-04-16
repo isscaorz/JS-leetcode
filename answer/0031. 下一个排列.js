@@ -17,5 +17,33 @@ https://leetcode-cn.com/problems/next-permutation/
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var nextPermutation = function(nums) {
-    
+	let len = nums.length;
+	let flag = false;
+	let pos;
+	for (let i = len - 2; i >= 0; i--) {
+		if (nums[i] < nums[i + 1]) {
+			flag = true;
+			pos = i;
+			break;
+		}
+	}
+	if (!flag) {
+		nums.sort((a, b) => {
+			return a - b;
+		});
+	} else {
+		for (let i = len - 1; ; i--) {
+			if (nums[i] > nums[pos]) {
+				let tmp = nums[i];
+				nums[i] = nums[pos];
+				nums[pos] = tmp;
+				break;
+			}
+		}
+		let tmp = nums.slice(pos + 1).sort((a, b) => {
+			return a - b;
+		});
+		nums.length = pos + 1;
+		Array.prototype.push.apply(nums, tmp);
+    }
 };
