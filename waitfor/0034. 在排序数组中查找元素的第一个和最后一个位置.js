@@ -20,5 +20,21 @@ https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sort
  * @return {number[]}
  */
 var searchRange = function(nums, target) {
-    
+	let len = nums.length;
+	
+	return -1;
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function(nums, target) {
+	let idx = [];
+	nums.forEach(function(item, index, array) {
+		if (item === target) idx.push(index);
+	});
+	if (!idx.length) return [-1, -1];
+	return [idx[0], idx[idx.length - 1]];
 };
