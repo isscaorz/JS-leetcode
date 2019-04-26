@@ -21,8 +21,37 @@ https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sort
  */
 var searchRange = function(nums, target) {
 	let len = nums.length;
-	
-	return -1;
+	let left = -1;
+	let right = -1;
+	let numsL = 0;
+	let numsR = len - 1;
+	while (numsL <= numsR) {
+		let mid = Math.floor((numsL + numsR) / 2);
+		if (nums[mid] < target) {
+			numsL = mid + 1;
+		} else {
+			numsR = mid - 1;
+		}
+		if (nums[numsL] == target) {
+			left = numsL;
+			break;
+		}
+	}
+	numsL = 0;
+	numsR = len - 1;
+	while (numsL <= numsR) {
+		let mid = Math.ceil((numsL + numsR) / 2);
+		if (nums[mid] > target) {
+			numsR = mid - 1;
+		} else {
+			numsL = mid + 1;
+		}
+		if (nums[numsR] == target) {
+			right = numsR;
+			break;
+		}
+	}
+	return [left, right];
 };
 
 /**
