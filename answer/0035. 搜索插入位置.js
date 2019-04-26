@@ -25,5 +25,25 @@ https://leetcode-cn.com/problems/search-insert-position/
  * @return {number}
  */
 var searchInsert = function(nums, target) {
-    
+	let len = nums.length;
+	let numsL = 0;
+	let numsR = len - 1;
+	while (numsL < numsR) {
+		let mid = Math.floor((numsL + numsR) / 2);
+		if (nums[mid] == target) {
+			return mid;
+		}
+		if (nums[mid] < target) {
+			numsL = mid + 1;
+		} else {
+			numsR = mid;
+		}
+	}
+	if (target < nums[0]) {
+		return 0;
+	} else if (target > nums[len - 1]) {
+		return len;
+	} else {
+		return numsL;
+	}
 };
