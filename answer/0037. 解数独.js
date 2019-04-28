@@ -60,5 +60,54 @@ Note:
  * @return {void} Do not return anything, modify board in-place instead.
  */
 var solveSudoku = function(board) {
-    
+	let row = [],
+		col = [],
+		block = [];
+	for (let i = 0; i < 9; i++) {
+		row.push([]);
+		col.push([]);
+		block.push([]);
+	}
+	for (let i = 0; i < 9; i++) {
+		for (let j = 0; j < 9; j++) {
+			if (board[i][j] !== '.') {
+				let num = board[i][j] * 1;
+				let blockIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
+				row[i][num] = true;
+				col[j][num] = true;
+				block[blockIndex][num] = true;
+			}
+		}
+	}
+	let dfs = (board, row, col, block, i, j) => {
+		while (board[i][j] !== '.') {
+			if (++j >= 9) {
+				i++;
+				j = 0;
+			}
+			if (i >= 9) {
+				return true;
+			}
+		}
+		for (let num = 1; num <= 9; num++) {
+			let blockIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
+			if (!row[i][num] && !col[j][num] && !block[blockIndex][num]) {
+				board[i][j] = num + '';
+				row[i][num] = true;
+				col[j][num] = true;
+				block[blockIndex][num] = true;
+				if (dfs(board, row, col, block, i, j)) {
+					return true;
+				} else {
+					board[i][j] = '.';
+					row[i][num] = false;
+					col[j][num] = false;
+					block[blockIndex][num] = false;
+				}
+			}
+		}
+		return false;
+	};
+	dfs(board, row, col, block, 0, 0);
 };
+

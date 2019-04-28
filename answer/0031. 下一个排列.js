@@ -45,5 +45,5 @@ var nextPermutation = function(nums) {
 		});
 		nums.length = pos + 1;
 		Array.prototype.push.apply(nums, tmp);
-    }
+	}
 };
