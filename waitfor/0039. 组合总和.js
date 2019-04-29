@@ -31,5 +31,29 @@ candidates 中的数字可以无限制重复被选取。
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-    
+	let ans = [];
+	let res;
+	let dfs = (candidates, target, index, sum) => {
+		if (sum === target) {
+			let tmp = res.map(item => {
+				return item;
+			});
+			ans.push(tmp);
+			return;
+		}
+		for (let i = index, len = candidates.length; i < len; i++) {
+			if (sum + candidates[i] > target) break;
+			res.push(candidates[i]);
+			dfs(candidates, target, i, sum + candidates[i]);
+            res.pop();
+		}
+	};
+	candidates.sort((a, b) => {
+		return a - b;
+	});
+	for (let i = 0, len = candidates.length; i < len; i++) {
+        res = [candidates[i]];
+		dfs(candidates, target, i, candidates[i]);
+    }
+    return ans;
 };

@@ -32,5 +32,27 @@ candidates 中的每个数字在每个组合中只能使用一次。
  * @return {number[][]}
  */
 var combinationSum2 = function(candidates, target) {
-    
+	candidates.sort(function(a, b) {
+		return a - b;
+	});
+	let len = candidates.length;
+	let res = [];
+	let ans = [];
+	let dfs = (index, sum) => {
+		if (sum > target) return;
+		if (sum === target) {
+			ans.push(res.concat());
+			return;
+		}
+		for (let i = index; i < len; i++) {
+			if (i > index && candidates[i] === candidates[i - 1]) {
+				continue;
+			}
+			res.push(candidates[i]);
+			dfs(i + 1, sum + candidates[i]);
+			res.pop();
+		}
+	};
+	dfs(0, 0);
+	return ans;
 };
