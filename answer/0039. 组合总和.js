@@ -30,7 +30,10 @@ candidates 中的数字可以无限制重复被选取。
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function(candidates, target) {
+var combinationSum = function(candidates, target) {    
+	candidates.sort((a, b) => {
+		return a - b;
+	});
 	let ans = [];
 	let res;
 	let dfs = (candidates, target, index, sum) => {
@@ -48,9 +51,6 @@ var combinationSum = function(candidates, target) {
             res.pop();
 		}
 	};
-	candidates.sort((a, b) => {
-		return a - b;
-	});
 	for (let i = 0, len = candidates.length; i < len; i++) {
         res = [candidates[i]];
 		dfs(candidates, target, i, candidates[i]);

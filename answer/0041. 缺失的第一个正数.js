@@ -22,5 +22,15 @@ https://leetcode-cn.com/problems/first-missing-positive/
  * @return {number}
  */
 var firstMissingPositive = function(nums) {
-    
+	let hash = [];
+	for (let i = 0, len = nums.length; i < len; i++) {
+		if (nums[i] > 0) {
+			hash[nums[i]] = true;
+		}
+	}
+	for (let i = 1; ; i++) {
+		if (!hash[i]) {
+			return i;
+		}
+	}
 };
