@@ -21,5 +21,25 @@ https://leetcode-cn.com/problems/trapping-rain-water/
  * @return {number}
  */
 var trap = function(height) {
-    
+	let len = height.length;
+	let maxLeft = [];
+	let maxRight = [];
+	let max = 0;
+	for (let i = 0; i < len; i++) {
+		maxLeft[i] = max;
+		max = Math.max(max, height[i]);
+	}
+	max = 0;
+	for (let i = len; i--; ) {
+		maxRight[i] = max;
+		max = Math.max(max, height[i]);
+	}
+	let sum = 0;
+	for (let i = 0; i < len; i++) {
+		let min = Math.min(maxLeft[i], maxRight[i]);
+		if (min > height[i]) {
+			sum += min - height[i];
+		}
+	}
+	return sum;
 };
