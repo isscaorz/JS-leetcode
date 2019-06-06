@@ -20,5 +20,16 @@ https://leetcode-cn.com/problems/jump-game-ii/
  * @return {number}
  */
 var jump = function(nums) {
-    
+	let step = 0;
+	let now = 0;
+	let next = 0;
+	let len = nums.length;
+	for (let i = 0; i < len && now < len - 1; i++) {
+		if (now < i) {
+			step++;
+			now = next;
+		}
+		next = Math.max(next, i + nums[i]);
+	}
+	return step;
 };

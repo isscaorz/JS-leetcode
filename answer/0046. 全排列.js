@@ -22,5 +22,22 @@ https://leetcode-cn.com/problems/permutations/
  * @return {number[][]}
  */
 var permute = function(nums) {
-    
+	let len = nums.length;
+	if (len < 2) {
+		return [nums];
+	}
+	let store = [];
+	let dfs = (index, cache) => {
+		if (index < len) {
+			for (let i = 0; i <= index; i++) {
+				let cacheNew = [...cache];
+				cacheNew.splice(i, 0, nums[index]);
+				dfs(index + 1, cacheNew);
+			}
+		} else {
+			store.push(cache);
+		}
+	};
+	dfs(0, []);
+	return store;
 };

@@ -21,5 +21,14 @@ https://leetcode-cn.com/problems/jump-game/
  * @return {boolean}
  */
 var canJump = function(nums) {
-    
+	let n = 1;
+	let len = nums.length;
+	for (let i = len - 2; i >= 0; i--) {
+		if (nums[i] >= n) {
+			n = 1;
+		} else {
+			n++;
+		}
+	}
+	return n > 1 ? false : true;
 };
