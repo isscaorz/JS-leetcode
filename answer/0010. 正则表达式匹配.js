@@ -47,7 +47,7 @@ https://leetcode-cn.com/problems/regular-expression-matching/
  * @return {boolean}
  */
 var isMatch = function(s, p) {
-	var reg = new RegExp('^' + p + '$', 'g');
+	let reg = new RegExp('^' + p + '$', 'g');
 	return reg.test(s);
 };
 

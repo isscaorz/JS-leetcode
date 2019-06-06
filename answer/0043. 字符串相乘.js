@@ -23,5 +23,23 @@ https://leetcode-cn.com/problems/multiply-strings/
  * @return {string}
  */
 var multiply = function(num1, num2) {
-    
+	if (num1 == '0' || num2 == '0') {
+		return '0';
+	}
+	let len1 = num1.length;
+	let len2 = num2.length;
+	if (len1 < 1 || len2 < 1) {
+		return '';
+	}
+	let len = len1 + len2;
+	let sumValueArr = [...Array(len).fill(0)];
+	for (let i = len1 - 1; i >= 0; i--) {
+		for (let j = len2 - 1; j >= 0; j--) {
+			sumValueArr[i + j + 1] += num1[i] * num2[j];
+			sumValueArr[i + j] += Math.floor(sumValueArr[i + j + 1] / 10);
+			sumValueArr[i + j + 1] = sumValueArr[i + j + 1] % 10;
+		}
+	}
+	sumValue = sumValueArr.join('');
+	return sumValueArr[0] == 0 ? sumValue.substr(1) : sumValue;
 };

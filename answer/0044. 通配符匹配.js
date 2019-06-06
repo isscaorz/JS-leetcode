@@ -46,6 +46,24 @@ https://leetcode-cn.com/problems/wildcard-matching/
  * @param {string} p
  * @return {boolean}
  */
+
 var isMatch = function(s, p) {
-    
+	if (s == null || p == null) return false;
+	if (s === p) return true;
+	let [sLen, pLen] = [s.length, p.length];
+	let dp = [...Array(sLen + 1)].map(item => (item = Array(pLen + 1)));
+	dp[0][0] = true;
+	for (let i = 0; i < pLen; i++) {
+		if (p[i] === '*') dp[0][i + 1] = dp[0][i];
+	}
+	for (let i = 0; i < sLen; i++) {
+		for (let j = 0; j < pLen; j++) {
+			if (p[j] === '?' || s[i] === p[j]) {
+				dp[i + 1][j + 1] = dp[i][j];
+			} else if (p[j] === '*') {
+				dp[i + 1][j + 1] = dp[i + 1][j] || dp[i][j + 1];
+			}
+		}
+	}
+	return Boolean(dp[sLen][pLen]);
 };
