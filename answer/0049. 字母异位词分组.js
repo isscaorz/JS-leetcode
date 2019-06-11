@@ -22,5 +22,30 @@ https://leetcode-cn.com/problems/group-anagrams/
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    
+	let len = strs.length;
+	if (len == 0) {
+		return [];
+	}
+	let output = {};
+	for (let i = 0; i < len; i++) {
+		let outKeyArr = [];
+		for (let j = 0, lenj = strs[i].length; j < lenj; j++) {
+			let index = strs[i][j].charCodeAt() - 97;
+			if (outKeyArr[index]) {
+				outKeyArr[index] = outKeyArr[index] + 1;
+			} else {
+				outKeyArr[index] = 1;
+			}
+		}
+		let outKey = outKeyArr.join('-');
+		if (!output[outKey]) {
+			output[outKey] = [];
+		}
+		output[outKey].push(strs[i]);
+	}
+	let outputArr = [];
+	for (let i in output) {
+		outputArr.push(output[i]);
+	}
+	return outputArr;
 };

@@ -46,5 +46,60 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
  * @return {string[][]}
  */
 var solveNQueens = function(n) {
-    
+	let answers = [],
+		queens = [],
+		upperlim = (1 << n) - 1;
+	let addSolution = () => {
+		let answer = [];
+		for (let i = 0; i < n; ++i) {
+			let col = queens[i],
+				sb = '';
+			for (let j = 0; j < col; ++j) {
+				sb += '.';
+			}
+			sb += 'Q';
+			for (let j = 0; j < n - col - 1; ++j) {
+				sb += '.';
+			}
+			answer.push(sb);
+		}
+		answers.push(answer);
+	};
+
+	function backtrack(col, ld, rd) {
+		if (col === upperlim) {
+            console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+			addSolution();
+		} else {
+			var pos = upperlim & ~(col | ld | rd);
+			console.log('---------------------------------------');
+			console.log(
+				upperlim.toString(2),
+				col.toString(2),
+				ld.toString(2),
+				rd.toString(2),
+				pos.toString(2)
+			);
+			while (pos) {
+				var current = pos & (~pos + 1);
+				console.log(pos, current);
+				pos -= current;
+				console.log(pos, Math.log2(current));
+				queens.push(n - 1 - Math.log2(current));
+				console.log(queens);
+				backtrack(
+					col | current,
+					upperlim & ((ld | current) >> 1),
+					upperlim & ((rd | current) << 1)
+				);
+				queens.pop();
+				console.log('queenspop:', queens);
+			}
+		}
+	}
+
+	backtrack(0, 0, 0);
+	return answers;
 };
+solveNQueens(4);
+// console.log((7 &  ~(0 | 0 | 0)).toString(2))

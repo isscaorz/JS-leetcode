@@ -46,6 +46,6 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
  * @param {number} n
  * @return {number}
  */
-var totalNQueens = function(n) {
+function solveNQueens(n) {
     
-};
+}
