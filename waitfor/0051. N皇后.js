@@ -82,18 +82,25 @@ var solveNQueens = function(n) {
 			);
 			while (pos) {
 				var current = pos & (~pos + 1);
-				console.log(pos, current);
+				console.log(pos.toString(2), current.toString(2)); //<<-----------------------
 				pos -= current;
-				console.log(pos, Math.log2(current));
+				console.log(pos.toString(2), Math.log2(current).toString(2));//<<-----------------------
 				queens.push(n - 1 - Math.log2(current));
-				console.log(queens);
+                console.log(queens);//<<-----------------------
+                console.log(
+                    upperlim.toString(2),
+                    (col | current).toString(2),
+                    (upperlim & ((ld | current) >> 1)).toString(2),
+                    (upperlim & ((rd | current) << 1)).toString(2),
+                    pos.toString(2)
+                );
 				backtrack(
 					col | current,
 					upperlim & ((ld | current) >> 1),
 					upperlim & ((rd | current) << 1)
 				);
 				queens.pop();
-				console.log('queenspop:', queens);
+				console.log('queenspop:', queens);//<<-----------------------
 			}
 		}
 	}
