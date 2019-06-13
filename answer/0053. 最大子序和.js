@@ -17,5 +17,12 @@ https://leetcode-cn.com/problems/maximum-subarray/
  * @return {number}
  */
 var maxSubArray = function(nums) {
-    
+	let sum = 0;
+	let sumMax = nums[0];
+	let len = nums.length;
+	for (let i = 0; i < len; i++) {
+		sum = sum > 0 ? sum + nums[i] : nums[i];
+		sumMax = Math.max(sumMax, sum);
+	}
+	return sumMax;
 };
